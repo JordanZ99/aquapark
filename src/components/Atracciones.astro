@@ -1,0 +1,26 @@
+---
+import { attractions } from '../data/site-data';
+---
+<section class="attractions" id="atracciones">
+  <div class="attractions-header">
+    <span class="section-tag dark">Diversión sin límites</span>
+    <h2 class="section-title dark">Nuestras <span class="g-text">Atracciones</span></h2>
+    <p class="section-subtitle dark">5 experiencias acuáticas para cada nivel de adrenalina</p>
+  </div>
+  <div class="attractions-sticky">
+    <div class="attractions-track" id="attractionsTrack">
+      {attractions.map((a, i) => (
+        <div class="attr-card" data-delay={i * 0.12}>
+          <div class="attr-card-img" style={`background: ${a.bg};`}></div>
+          <span class={`attr-card-badge badge-${a.badge}`}>{a.badgeLabel}</span>
+          <div class="attr-card-body">
+            <h3 class="attr-card-name">{a.name}</h3>
+            <p class="attr-card-desc">{a.desc}</p>
+            <div class="adrenaline-bar"><div class="adrenaline-fill" data-width={a.adrenaline}></div></div>
+            <div class="adrenaline-label"><span>Adrenalina</span><span>{a.adrenaline}%</span></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

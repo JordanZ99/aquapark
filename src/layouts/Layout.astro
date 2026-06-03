@@ -1,0 +1,35 @@
+---
+// ============================================================
+// SPLASH PARQUE ACUÁTICO — Base Layout v2
+// Paleta: celeste + amarillo, secciones alternando light/dark
+// ============================================================
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Splash — Parque Acuático | Homún, Yucatán',
+  description = 'El verano más extremo de Yucatán. 5 albercas gigantes, 2 toboganes extremos, AquaBar y más. Homún, Yucatán.',
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <title>{title}</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/global.css" />
+</head>
+<body>
+  <slot />
+  <script is:inline src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script is:inline src="/js/main.js"></script>
+</body>
+</html>
