@@ -255,45 +255,48 @@ ul { list-style: none; }
 .stat-label { font-size: 0.8rem; color: var(--color-text-muted); margin-top: 0.3rem; text-transform: uppercase; letter-spacing: 0.06em; }
 
 /* ============================================================
-   AQUABAR — Two-column sticky layout
+   AQUABAR — Interleaved layout
+   Desktop: photos left, moments right (CSS grid)
+   Mobile (<900px): text → image interleaved, stacked
    ============================================================ */
 .aquabar {
   position: relative;
   background: var(--color-primary-deeper);
 }
+
+/* Desktop: CSS grid — moments in col 2, photos in col 1 */
 .aquabar-split {
-  display: flex;
-}
-
-/* Left column: stacked photos */
-.aquabar-photo-col {
-  width: 45%;
-  position: relative;
-}
-.aquabar-photo-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-.aquabar-photo-img {
-  width: 100%;
-  height: 100vh;
-  object-fit: cover;
-  display: block;
-}
-
-/* Right column: scrollable moments */
-.aquabar-moments-col {
-  width: 55%;
-  background: var(--color-primary-deeper);
+  display: grid;
+  grid-template-columns: 45% 55%;
+  grid-template-rows: repeat(3, minmax(80vh, 1fr));
 }
 .aquabar-moment {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 15vh clamp(2rem, 5vw, 5rem);
+  grid-column: 2;
 }
+.aquabar-moment:nth-child(1) { grid-row: 1; }
+.aquabar-moment:nth-child(3) { grid-row: 2; }
+.aquabar-moment:nth-child(5) { grid-row: 3; }
+.aquabar-photo {
+  grid-column: 1;
+  overflow: hidden;
+  border-radius: 1rem;
+  margin: 2rem;
+}
+.aquabar-photo:nth-child(2) { grid-row: 1; }
+.aquabar-photo:nth-child(4) { grid-row: 2; }
+.aquabar-photo:nth-child(6) { grid-row: 3; }
+.aquabar-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 1rem;
+}
+
 .aquabar-moment-num {
   font-family: var(--font-heading);
   font-size: clamp(3rem, 6vw, 5rem);
@@ -319,18 +322,25 @@ ul { list-style: none; }
   max-width: 420px;
 }
 
-/* Responsive: stack on mobile */
-@media (max-width: 768px) {
-  .aquabar-split { flex-direction: column; }
-  .aquabar-photo-col { width: 100%; }
-  .aquabar-photo-img { height: 50vh; }
-  .aquabar-moments-col { width: 100%; }
+/* Mobile (<900px): interleaved text → image, stacked */
+@media (max-width: 900px) {
+  .aquabar-split {
+    display: flex;
+    flex-direction: column;
+  }
   .aquabar-moment {
+    padding: 3rem clamp(1.5rem, 5vw, 3rem);
     min-height: auto;
-    padding: 4rem clamp(1.5rem, 5vw, 3rem);
   }
   .aquabar-moment-title { font-size: 1.6rem; }
   .aquabar-moment-desc { font-size: 0.95rem; }
+  .aquabar-photo {
+    margin: 0;
+    border-radius: 0;
+    width: 100%;
+    height: 60vw;
+  }
+  .aquabar-photo img { border-radius: 0; }
 }
 
 /* CTA band */
