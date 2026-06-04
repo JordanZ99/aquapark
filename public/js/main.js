@@ -79,25 +79,74 @@
   }
 
   /* ---------------------------------------------------------
-     3. NAVBAR — Scroll state + mobile toggle
+     3. NAVBAR — Scroll state + mobile panel
      --------------------------------------------------------- */
   var navbar = document.getElementById('navbar');
   var navHamburger = document.getElementById('navHamburger');
-  var navLinks = document.getElementById('navLinks');
-  if (navHamburger) {
-    navHamburger.addEventListener('click', function () {
-      navHamburger.classList.toggle('open');
-      navLinks.classList.toggle('open');
-    });
-  }
-  if (navLinks) {
-    navLinks.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function () {
-        navHamburger.classList.remove('open');
-        navLinks.classList.remove('open');
+  var navOverlay = document.getElementById('navOverlay');
+  var navPanel = document.getElementById('navPanel');
+  var navPanelLinks = document.querySelectorAll('.nav-panel-link');
+  var menuOpen = false;
+  var menuAnimating = false;
+
+  function openMenu() {
+    if (menuAnimating || menuOpen) return;
+    menuAnimating = true;
+    menuOpen = true;
+    navHamburger.classList.add('open');
+    navOverlay.classList.add('open');
+    navPanel.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if (typeof gsap !== 'undefined') {
+      gsap.fromTo(navPanelLinks,
+        { x: 40, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.4, stagger: 0.06, ease: 'power3.out', delay: 0.15,
+          onComplete: function () { menuAnimating = false; }
+        }
+      );
+    } else {
+      navPanelLinks.forEach(function (l, i) {
+        l.style.opacity = '1';
+        l.style.transform = 'translateX(0)';
       });
-    });
+      menuAnimating = false;
+    }
   }
+
+  function closeMenu() {
+    if (menuAnimating || !menuOpen) return;
+    menuAnimating = true;
+    menuOpen = false;
+    navHamburger.classList.remove('open');
+    document.body.style.overflow = '';
+    if (typeof gsap !== 'undefined') {
+      gsap.to(navPanelLinks, {
+        x: 40, opacity: 0, duration: 0.25, stagger: 0.03, ease: 'power2.in',
+        onComplete: function () {
+          navPanel.classList.remove('open');
+          navOverlay.classList.remove('open');
+          gsap.set(navPanelLinks, { clearProps: 'all' });
+          menuAnimating = false;
+        }
+      });
+    } else {
+      navPanel.classList.remove('open');
+      navOverlay.classList.remove('open');
+      menuAnimating = false;
+    }
+  }
+
+  if (navHamburger) navHamburger.addEventListener('click', function () {
+    if (menuOpen) closeMenu(); else openMenu();
+  });
+  if (navOverlay) navOverlay.addEventListener('click', closeMenu);
+
+  document.querySelectorAll('.nav-panel-link').forEach(function (a) {
+    a.addEventListener('click', closeMenu);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && menuOpen) closeMenu();
+  });
 
   /* ---------------------------------------------------------
      4. CACHE SCROLL POSITIONS (measured once)
