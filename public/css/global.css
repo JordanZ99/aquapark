@@ -172,28 +172,48 @@ ul { list-style: none; }
 .nosotros-feat span { font-size: 1.1rem; }
 
 /* ============================================================
-   ATRACCIONES — Dark bg, horizontal scroll pinned
+   ATRACCIONES — Dark bg, looping carousel
    ============================================================ */
-.attractions { position: relative; min-height: 200vh; background: var(--color-primary-dark); overflow: hidden; }
-.attractions-header { padding: 6rem clamp(1rem,4vw,3rem) 3rem; text-align: center; }
-.attractions-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; overflow: hidden; }
-.attractions-track { display: flex; gap: 2rem; padding: 0 clamp(1rem,4vw,3rem); will-change: transform; }
+.attractions { position: relative; background: var(--color-primary-dark); overflow: hidden; padding: 6rem 0 4rem; }
+.attractions-header { padding: 0 clamp(1rem,4vw,3rem) 3rem; text-align: center; }
 
-.attr-card { flex: 0 0 min(380px, 80vw); height: 480px; border-radius: 1.25rem; overflow: hidden; position: relative; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s; opacity: 0; transform: perspective(1000px) rotateY(8deg) translateY(40px); }
-.attr-card.visible { opacity: 1; transform: perspective(1000px) rotateY(0) translateY(0); }
-.attr-card:hover { transform: perspective(1000px) rotateY(-2deg) translateY(-8px); box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
+.carousel { position: relative; max-width: 700px; margin: 0 auto; overflow: visible; }
+.carousel-track { position: relative; width: 100%; height: 520px; perspective: 1200px; }
+.carousel-slide { position: absolute; top: 0; left: 50%; width: 48%; height: 100%; opacity: 0; transform: translateX(-50%) scale(0.7) translateX(-30%); filter: blur(2px) brightness(0.5); z-index: 1; transition: all 0.6s cubic-bezier(0.16,1,0.3,1); pointer-events: none; }
+.carousel-slide.active { opacity: 1; transform: translateX(-50%) scale(1) translateX(0); filter: blur(0) brightness(1); z-index: 3; pointer-events: auto; }
+.carousel-slide.prev { opacity: 0.6; transform: translateX(-50%) scale(0.78) translateX(-75%); filter: blur(1px) brightness(0.6); z-index: 2; pointer-events: auto; cursor: pointer; }
+.carousel-slide.next { opacity: 0.6; transform: translateX(-50%) scale(0.78) translateX(75%); filter: blur(1px) brightness(0.6); z-index: 2; pointer-events: auto; cursor: pointer; }
 
-.attr-card-img { height: 55%; width: 100%; background: linear-gradient(135deg, #023E8A, #0096C7); position: relative; }
+.carousel-btn { position: absolute; top: 42%; z-index: 10; width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); color: var(--color-white); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.3s, transform 0.3s; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.carousel-btn:hover { background: rgba(255,255,255,0.3); transform: scale(1.1); }
+.carousel-btn-prev { left: -10px; }
+.carousel-btn-next { right: -10px; }
+
+@media (max-width: 640px) {
+  .carousel-track { height: 420px; }
+  .carousel-slide { width: 70%; }
+  .carousel-slide.active { transform: translateX(-50%) scale(1) translateX(0); }
+  .carousel-slide.prev { transform: translateX(-50%) scale(0.7) translateX(-55%); }
+  .carousel-slide.next { transform: translateX(-50%) scale(0.7) translateX(55%); }
+}
+
+.carousel-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.5rem; }
+.carousel-dot { width: 10px; height: 10px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.3); background: transparent; cursor: pointer; transition: background 0.3s, border-color 0.3s; padding: 0; }
+.carousel-dot.active { background: var(--color-accent); border-color: var(--color-accent); }
+.carousel-dot:hover { border-color: var(--color-white); }
+
+.attr-card { height: 100%; border-radius: 1.25rem; overflow: hidden; position: relative; border: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; }
+.attr-card-img { height: 55%; width: 100%; background: linear-gradient(135deg, #023E8A, #0096C7); position: relative; flex-shrink: 0; }
 .attr-card-img img { width: 100%; height: 100%; object-fit: cover; }
 
-.attr-card-badge { position: absolute; top: 1rem; left: 1rem; padding: 0.25rem 0.7rem; border-radius: 999px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+.attr-card-badge { position: absolute; top: 1rem; left: 1rem; padding: 0.25rem 0.7rem; border-radius: 999px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; z-index: 2; }
 .badge-extreme { background: var(--color-accent-warm); color: var(--color-white); }
 .badge-family { background: var(--color-primary); color: var(--color-white); }
 .badge-kids { background: var(--color-accent); color: var(--color-primary-deeper); }
 
-.attr-card-body { padding: 1.5rem; }
+.attr-card-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
 .attr-card-name { font-size: 1.6rem; color: var(--color-white); margin-bottom: 0.4rem; }
-.attr-card-desc { font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.5; margin-bottom: 1rem; }
+.attr-card-desc { font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.5; margin-bottom: 1rem; flex: 1; }
 .adrenaline-bar { width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; }
 .adrenaline-fill { height: 100%; border-radius: 2px; width: 0; background: linear-gradient(90deg, var(--color-primary), var(--color-accent)); transition: width 1.5s cubic-bezier(0.16,1,0.3,1); }
 .adrenaline-label { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--color-text-muted); margin-top: 0.35rem; }

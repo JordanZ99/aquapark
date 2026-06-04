@@ -2,26 +2,39 @@
 import { attractions } from '../data/site-data';
 ---
 <section class="attractions" id="atracciones">
-  <div class="attractions-header" id="attractionsHeader">
+  <div class="attractions-header">
     <span class="section-tag dark">Diversión sin límites</span>
     <h2 class="section-title dark">Nuestras <span class="g-text">Atracciones</span></h2>
     <p class="section-subtitle dark">5 experiencias acuáticas para cada nivel de adrenalina</p>
   </div>
-  <div class="attractions-sticky">
-    <div class="attractions-track" id="attractionsTrack">
+  <div class="carousel" id="attrCarousel">
+    <div class="carousel-track" id="carouselTrack">
       {attractions.map((a, i) => (
-        <div class="attr-card" data-delay={i * 0.12}>
-          <div class="attr-card-img" style={`background: ${a.bg};`}>
-            <img src={a.img} alt={a.name} loading="lazy" />
-          </div>
-          <span class={`attr-card-badge badge-${a.badge}`}>{a.badgeLabel}</span>
-          <div class="attr-card-body">
-            <h3 class="attr-card-name">{a.name}</h3>
-            <p class="attr-card-desc">{a.desc}</p>
-            <div class="adrenaline-bar"><div class="adrenaline-fill" data-width={a.adrenaline}></div></div>
-            <div class="adrenaline-label"><span>Adrenalina</span><span>{a.adrenaline}%</span></div>
+        <div class={`carousel-slide${i === 0 ? ' active' : ''}`} data-index={i}>
+          <div class="attr-card" style={`background: ${a.bg};`}>
+            <div class="attr-card-img">
+              <img src={a.img} alt={a.name} loading="lazy" />
+            </div>
+            <span class={`attr-card-badge badge-${a.badge}`}>{a.badgeLabel}</span>
+            <div class="attr-card-body">
+              <h3 class="attr-card-name">{a.name}</h3>
+              <p class="attr-card-desc">{a.desc}</p>
+              <div class="adrenaline-bar"><div class="adrenaline-fill" data-width={a.adrenaline}></div></div>
+              <div class="adrenaline-label"><span>Adrenalina</span><span>{a.adrenaline}%</span></div>
+            </div>
           </div>
         </div>
+      ))}
+    </div>
+    <button class="carousel-btn carousel-btn-prev" id="carouselPrev" aria-label="Anterior">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    <button class="carousel-btn carousel-btn-next" id="carouselNext" aria-label="Siguiente">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+    <div class="carousel-dots" id="carouselDots">
+      {attractions.map((_, i) => (
+        <button class={`carousel-dot${i === 0 ? ' active' : ''}`} data-index={i} aria-label={`Slide ${i + 1}`}></button>
       ))}
     </div>
   </div>

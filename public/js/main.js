@@ -105,7 +105,6 @@
   var heroSection = document.getElementById('hero');
   var heroBg = document.getElementById('heroBg');
   var attractionsSection = document.getElementById('atracciones');
-  var attractionsTrack = document.getElementById('attractionsTrack');
   var aquabarSection = document.getElementById('aquabar');
   var aquabarBg = document.getElementById('aquabarBg');
   var footerEl = document.getElementById('footer');
@@ -141,16 +140,7 @@
           heroBg.style.transform = 'translateY(' + (scrollY * 0.4) + 'px)';
         }
 
-        /* Attractions horizontal scroll */
-        if (attractionsTrack && attrH > 0) {
-          var trackW = attractionsTrack.scrollWidth;
-          var wrapperW = attractionsTrack.parentElement.clientWidth;
-          var maxTx = trackW - wrapperW;
-          if (maxTx > 0) {
-            var progressAttr = Math.max(0, Math.min(1, (scrollY - (attrTop - vh)) / (attrH)));
-            attractionsTrack.style.transform = 'translateX(' + (-progressAttr * maxTx) + 'px)';
-          }
-        }
+        /* Attractions carousel (handled by separate module) */
 
         /* AquaBar */
         if (aqH > 0 && aquabarBg) {
@@ -238,28 +228,105 @@
   });
 
   /* ---------------------------------------------------------
-     7b. ATTRACTIONS — Reveal cards when header enters viewport
-     (Cards are inside sticky+overflow:hidden, so normal
-      IntersectionObserver doesn't fire on them.)
+     7b. ATTRACTIONS CAROUSEL — Coverflow auto-play with loop
      --------------------------------------------------------- */
-  var attrHeader = document.getElementById('attractionsHeader');
-  if (attrHeader) {
-    var attrHeaderObs = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        var cards = document.querySelectorAll('.attr-card');
-        cards.forEach(function (card, i) {
-          var delay = parseFloat(card.getAttribute('data-delay')) || 0;
-          setTimeout(function () {
-            card.classList.add('visible');
-            var bar = card.querySelector('.adrenaline-fill');
-            if (bar) bar.style.width = bar.getAttribute('data-width') + '%';
-          }, delay * 1000);
-        });
-        attrHeaderObs.unobserve(entry.target);
+  var carousel = document.getElementById('attrCarousel');
+  if (carousel) {
+    var slides = carousel.querySelectorAll('.carousel-slide');
+    var dots = carousel.querySelectorAll('.carousel-dot');
+    var prevBtn = document.getElementById('carouselPrev');
+    var nextBtn = document.getElementById('carouselNext');
+    var currentIdx = 0;
+    var autoplayInterval = null;
+    var isAnimating = false;
+    var total = slides.length;
+
+    function updatePositions(newIdx, oldIdx) {
+      slides.forEach(function (slide, i) {
+        slide.classList.remove('active', 'prev', 'next', 'exit-left', 'exit-right');
+        if (i === newIdx) {
+          slide.classList.add('active');
+        } else {
+          var diff = i - newIdx;
+          if (diff === 1 || diff === -(total - 1)) {
+            slide.classList.add('next');
+          } else if (diff === -1 || diff === total - 1) {
+            slide.classList.add('prev');
+          }
+        }
       });
-    }, { threshold: 0.3 });
-    attrHeaderObs.observe(attrHeader);
+
+      dots.forEach(function (d) { d.classList.remove('active'); });
+      dots[newIdx].classList.add('active');
+
+      /* Animate adrenaline bar on new slide */
+      var bar = slides[newIdx].querySelector('.adrenaline-fill');
+      if (bar) bar.style.width = '0%';
+      setTimeout(function () {
+        if (bar) bar.style.width = bar.getAttribute('data-width') + '%';
+      }, 200);
+    }
+
+    function goToSlide(idx) {
+      if (isAnimating) return;
+      isAnimating = true;
+      var oldIdx = currentIdx;
+      currentIdx = ((idx % total) + total) % total;
+      updatePositions(currentIdx, oldIdx);
+      setTimeout(function () { isAnimating = false; }, 650);
+    }
+
+    function nextSlide() { goToSlide(currentIdx + 1); }
+    function prevSlide() { goToSlide(currentIdx - 1); }
+
+    function startAutoplay() {
+      stopAutoplay();
+      autoplayInterval = setInterval(nextSlide, 4000);
+    }
+    function stopAutoplay() {
+      if (autoplayInterval) { clearInterval(autoplayInterval); autoplayInterval = null; }
+    }
+
+    if (nextBtn) nextBtn.addEventListener('click', function () { nextSlide(); startAutoplay(); });
+    if (prevBtn) prevBtn.addEventListener('click', function () { prevSlide(); startAutoplay(); });
+
+    /* Click on prev/next slides to go to them */
+    carousel.addEventListener('click', function (e) {
+      var slide = e.target.closest('.carousel-slide');
+      if (!slide || slide.classList.contains('active')) return;
+      var idx = parseInt(slide.getAttribute('data-index'), 10);
+      goToSlide(idx);
+      startAutoplay();
+    });
+
+    dots.forEach(function (dot) {
+      dot.addEventListener('click', function () {
+        var idx = parseInt(dot.getAttribute('data-index'), 10);
+        goToSlide(idx);
+        startAutoplay();
+      });
+    });
+
+    /* Touch/swipe support */
+    var touchStartX = 0;
+    carousel.addEventListener('touchstart', function (e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+    carousel.addEventListener('touchend', function (e) {
+      var diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) nextSlide(); else prevSlide();
+        startAutoplay();
+      }
+    }, { passive: true });
+
+    /* Pause on hover */
+    carousel.addEventListener('mouseenter', stopAutoplay);
+    carousel.addEventListener('mouseleave', startAutoplay);
+
+    /* Initialize */
+    updatePositions(0, -1);
+    startAutoplay();
+    var firstBar = slides[0].querySelector('.adrenaline-fill');
+    if (firstBar) setTimeout(function () { firstBar.style.width = firstBar.getAttribute('data-width') + '%'; }, 500);
   }
 
   /* ---------------------------------------------------------

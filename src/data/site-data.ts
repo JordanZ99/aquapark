@@ -10,7 +10,7 @@ export const stats = [
   { icon: 'visitors', value: 50000, suffix: '+', label: 'Visitantes al año' },
   { icon: 'pools', value: 5, suffix: '', label: 'Albercas gigantes' },
   { icon: 'slides', value: 2, suffix: '', label: 'Toboganes extremos' },
-  { icon: 'years', value: 12, suffix: '+', label: 'Años de historia' },
+  { icon: 'years', value: 13, suffix: '+', label: 'Años de historia' },
 ];
 
 export const galleryItems = [
