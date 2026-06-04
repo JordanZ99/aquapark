@@ -183,6 +183,20 @@ ul { list-style: none; }
 .carousel-slide.active { opacity: 1; transform: translateX(-50%) scale(1) translateX(0); filter: blur(0) brightness(1); z-index: 3; pointer-events: auto; }
 .carousel-slide.prev { opacity: 0.6; transform: translateX(-50%) scale(0.78) translateX(-75%); filter: blur(1px) brightness(0.6); z-index: 2; pointer-events: auto; cursor: pointer; }
 .carousel-slide.next { opacity: 0.6; transform: translateX(-50%) scale(0.78) translateX(75%); filter: blur(1px) brightness(0.6); z-index: 2; pointer-events: auto; cursor: pointer; }
+.carousel-slide.prev-2 { opacity: 0.3; transform: translateX(-50%) scale(0.6) translateX(-120%); filter: blur(3px) brightness(0.4); z-index: 1; pointer-events: auto; cursor: pointer; }
+.carousel-slide.next-2 { opacity: 0.3; transform: translateX(-50%) scale(0.6) translateX(120%); filter: blur(3px) brightness(0.4); z-index: 1; pointer-events: auto; cursor: pointer; }
+@media (max-width: 899px) { .carousel-slide.prev-2, .carousel-slide.next-2 { display: none; } }
+
+@media (min-width: 900px) {
+  .carousel { max-width: 1000px; }
+  .carousel-track { height: 540px; }
+  .carousel-slide { width: 35%; }
+  .carousel-slide.active { transform: translateX(-50%) scale(1) translateX(0); }
+  .carousel-slide.prev { opacity: 0.7; transform: translateX(-50%) scale(0.82) translateX(-60%); filter: blur(0.5px) brightness(0.7); }
+  .carousel-slide.next { opacity: 0.7; transform: translateX(-50%) scale(0.82) translateX(60%); filter: blur(0.5px) brightness(0.7); }
+  .carousel-slide.prev-2 { opacity: 0.4; transform: translateX(-50%) scale(0.65) translateX(-105%); filter: blur(2px) brightness(0.5); }
+  .carousel-slide.next-2 { opacity: 0.4; transform: translateX(-50%) scale(0.65) translateX(105%); filter: blur(2px) brightness(0.5); }
+}
 
 .carousel-btn { position: absolute; top: 42%; z-index: 10; width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); color: var(--color-white); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.3s, transform 0.3s; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
 .carousel-btn:hover { background: rgba(255,255,255,0.3); transform: scale(1.1); }

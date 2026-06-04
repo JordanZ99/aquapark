@@ -243,7 +243,7 @@
 
     function updatePositions(newIdx, oldIdx) {
       slides.forEach(function (slide, i) {
-        slide.classList.remove('active', 'prev', 'next', 'exit-left', 'exit-right');
+        slide.classList.remove('active', 'prev', 'next', 'prev-2', 'next-2');
         if (i === newIdx) {
           slide.classList.add('active');
         } else {
@@ -252,6 +252,10 @@
             slide.classList.add('next');
           } else if (diff === -1 || diff === total - 1) {
             slide.classList.add('prev');
+          } else if (diff === 2 || diff === -(total - 2)) {
+            slide.classList.add('next-2');
+          } else if (diff === -2 || diff === total - 2) {
+            slide.classList.add('prev-2');
           }
         }
       });
