@@ -174,7 +174,7 @@ ul { list-style: none; }
 /* ============================================================
    ATRACCIONES — Dark bg, horizontal scroll pinned
    ============================================================ */
-.attractions { position: relative; min-height: 500vh; background: var(--color-primary-dark); overflow: hidden; }
+.attractions { position: relative; min-height: 200vh; background: var(--color-primary-dark); overflow: hidden; }
 .attractions-header { padding: 6rem clamp(1rem,4vw,3rem) 3rem; text-align: center; }
 .attractions-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; overflow: hidden; }
 .attractions-track { display: flex; gap: 2rem; padding: 0 clamp(1rem,4vw,3rem); will-change: transform; }

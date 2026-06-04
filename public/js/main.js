@@ -233,9 +233,34 @@
     });
   }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
-  document.querySelectorAll('.attr-card, .stat-card, .gallery-item').forEach(function (el) {
+  document.querySelectorAll('.stat-card, .gallery-item').forEach(function (el) {
     revealObserver.observe(el);
   });
+
+  /* ---------------------------------------------------------
+     7b. ATTRACTIONS — Reveal cards when header enters viewport
+     (Cards are inside sticky+overflow:hidden, so normal
+      IntersectionObserver doesn't fire on them.)
+     --------------------------------------------------------- */
+  var attrHeader = document.getElementById('attractionsHeader');
+  if (attrHeader) {
+    var attrHeaderObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var cards = document.querySelectorAll('.attr-card');
+        cards.forEach(function (card, i) {
+          var delay = parseFloat(card.getAttribute('data-delay')) || 0;
+          setTimeout(function () {
+            card.classList.add('visible');
+            var bar = card.querySelector('.adrenaline-fill');
+            if (bar) bar.style.width = bar.getAttribute('data-width') + '%';
+          }, delay * 1000);
+        });
+        attrHeaderObs.unobserve(entry.target);
+      });
+    }, { threshold: 0.3 });
+    attrHeaderObs.observe(attrHeader);
+  }
 
   /* ---------------------------------------------------------
      8. GALLERY FILTERS
