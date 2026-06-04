@@ -11,7 +11,9 @@ import { attractions } from '../data/site-data';
     <div class="attractions-track" id="attractionsTrack">
       {attractions.map((a, i) => (
         <div class="attr-card" data-delay={i * 0.12}>
-          <div class="attr-card-img" style={`background: ${a.bg};`}></div>
+          <div class="attr-card-img" style={`background: ${a.bg};`}>
+            <img src={a.img} alt={a.name} loading="lazy" />
+          </div>
           <span class={`attr-card-badge badge-${a.badge}`}>{a.badgeLabel}</span>
           <div class="attr-card-body">
             <h3 class="attr-card-name">{a.name}</h3>

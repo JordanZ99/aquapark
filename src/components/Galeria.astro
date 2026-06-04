@@ -18,7 +18,9 @@ import { galleryItems } from '../data/site-data';
   <div class="gallery-grid" id="galleryGrid">
     {galleryItems.map((item, i) => (
       <div class="gallery-item" data-delay={i * 0.08} data-filter-category={item.filter} style={`grid-row: span ${Math.ceil(item.h / 10)};`}>
-        <div class="gallery-item-inner" style={`background: ${item.color}; min-height:${item.h}px;`}></div>
+        <div class="gallery-item-inner" style={`background: ${item.color}; min-height:${item.h}px;`}>
+          <img src={item.img} alt={item.title} loading="lazy" />
+        </div>
         <div class="gallery-item-overlay">
           <h4>{item.title}</h4>
           <p>{item.filter}</p>

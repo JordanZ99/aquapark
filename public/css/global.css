@@ -126,7 +126,7 @@ ul { list-style: none; }
    ============================================================ */
 .hero { position: relative; width: 100%; height: 100vh; min-height: 500px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .hero-bg { position: absolute; inset: 0; will-change: transform; }
-.hero-bg img { width: 100%; height: 100%; object-fit: cover; }
+.hero-bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
 .hero-bg-fallback { position: absolute; inset: 0; background: linear-gradient(135deg, #023E8A 0%, #0077B6 40%, #0096C7 70%, #00B4D8 100%); }
 .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(3,4,94,0.5) 0%, rgba(0,180,216,0.3) 100%); }
 .hero-content { position: relative; z-index: 2; text-align: center; padding: 0 1.5rem; }
@@ -223,7 +223,7 @@ ul { list-style: none; }
 .aquabar { position: relative; }
 .aquabar-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .aquabar-bg { position: absolute; inset: 0; will-change: transform; }
-.aquabar-bg img { width: 100%; height: 100%; object-fit: cover; }
+.aquabar-bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
 .aquabar-bg-fallback { position: absolute; inset: 0; background: linear-gradient(135deg, #023E8A, #0077B6); }
 .aquabar-overlay { position: absolute; inset: 0; background: rgba(3,4,94,0.75); }
 .aquabar-texts { position: relative; z-index: 2; text-align: center; padding: 0 1.5rem; }
@@ -270,7 +270,8 @@ ul { list-style: none; }
 .gallery-item { border-radius: 0.75rem; overflow: hidden; position: relative; cursor: pointer; opacity: 0; transform: translateY(60px); transition: opacity 0.7s, transform 0.7s, filter 0.4s ease; }
 .gallery-item.visible { opacity: 1; transform: translateY(0); }
 .gallery-item.hidden { opacity: 0.2; transform: scale(0.95); filter: grayscale(0.5); }
-.gallery-item-inner { width: 100%; height: 100%; min-height: 100%; background: linear-gradient(135deg, #023E8A, #0096C7); transition: transform 0.5s; position: relative; }
+.gallery-item-inner { width: 100%; height: 100%; min-height: 100%; background: linear-gradient(135deg, #023E8A, #0096C7); transition: transform 0.5s; position: relative; overflow: hidden; }
+.gallery-item-inner img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .gallery-item:hover .gallery-item-inner { transform: scale(1.08); }
 .gallery-item-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.75) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1rem; opacity: 0; transition: opacity 0.4s; }
 .gallery-item:hover .gallery-item-overlay { opacity: 1; }
@@ -294,8 +295,9 @@ ul { list-style: none; }
 .souvenirs-list { columns: 2; column-gap: 1.5rem; }
 .souvenirs-list li { font-size: 0.9rem; color: var(--color-text-muted); padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); break-inside: avoid; }
 .souvenirs-list li::before { content: '• '; color: var(--color-accent); }
-.souvenirs-img { border-radius: 1rem; overflow: hidden; }
+.souvenirs-img { border-radius: 1rem; overflow: hidden; position: relative; }
 .souvenirs-img-fallback { width: 100%; aspect-ratio: 4/3; background: linear-gradient(135deg, #023E8A, #00B4D8); border-radius: 1rem; }
+.souvenirs-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 1rem; position: absolute; inset: 0; }
 
 /* ============================================================
    SERVICIOS — Light bg
