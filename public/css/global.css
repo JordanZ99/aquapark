@@ -56,6 +56,10 @@ ul { list-style: none; }
 .section-subtitle.dark { color: var(--color-text-muted); }
 .section-subtitle.light { color: var(--color-text-dark-muted); }
 
+/* Reveal animation utility */
+.reveal-item { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+.reveal-item.visible { opacity: 1; transform: translateY(0); }
+
 /* ============================================================
    PRELOADER
    ============================================================ */
@@ -252,24 +256,116 @@ ul { list-style: none; }
 .stat-label { font-size: 0.8rem; color: var(--color-text-muted); margin-top: 0.3rem; text-transform: uppercase; letter-spacing: 0.06em; }
 
 /* ============================================================
-   AQUABAR — Dark bg, sticky storytelling
+   AQUABAR — Two-column sticky layout
    ============================================================ */
-.aquabar { position: relative; }
-.aquabar-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.aquabar-bg { position: absolute; inset: 0; will-change: transform; }
-.aquabar-bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
-.aquabar-bg-fallback { position: absolute; inset: 0; background: linear-gradient(135deg, #023E8A, #0077B6); }
-.aquabar-overlay { position: absolute; inset: 0; background: rgba(3,4,94,0.75); }
-.aquabar-texts { position: relative; z-index: 2; text-align: center; padding: 0 1.5rem; }
-.aquabar-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 600px; text-align: center; clip-path: inset(0 100% 0 0); transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1); }
-.aquabar-text.active { clip-path: inset(0 0% 0 0); }
-.aquabar-text h3 { font-size: clamp(2rem, 5vw, 3.5rem); color: var(--color-white); margin-bottom: 0.5rem; }
-.aquabar-text p { font-size: 1rem; color: var(--color-text-muted); line-height: 1.6; }
-.aquabar-drinks { display: flex; gap: 1.5rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap; }
-.aquabar-drink { padding: 0.5rem 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 999px; color: var(--color-white); font-size: 0.8rem; display: flex; align-items: center; gap: 0.4rem; }
-.aquabar-cta { display: inline-block; margin-top: 1rem; padding: 0.7rem 1.8rem; border: 2px solid var(--color-accent); color: var(--color-accent); border-radius: 999px; font-family: var(--font-heading); font-size: 1.1rem; letter-spacing: 0.08em; transition: background 0.3s, color 0.3s; }
-.aquabar-cta:hover { background: var(--color-accent); color: var(--color-primary-deeper); }
-.aquabar-spacer { height: 300vh; }
+.aquabar {
+  position: relative;
+  background: var(--color-primary-deeper);
+}
+.aquabar-split {
+  display: flex;
+}
+
+/* Left column: sticky photo */
+.aquabar-photo-col {
+  width: 45%;
+  position: relative;
+}
+.aquabar-photo-wrap {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+.aquabar-photo-fallback {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #023E8A, #0077B6);
+}
+.aquabar-photo-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+/* Right column: scrollable moments */
+.aquabar-moments-col {
+  width: 55%;
+  background: var(--color-primary-deeper);
+}
+.aquabar-moment {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 15vh clamp(2rem, 5vw, 5rem);
+}
+.aquabar-moment-num {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 6vw, 5rem);
+  color: var(--color-accent);
+  line-height: 1;
+  margin-bottom: 1rem;
+  opacity: 0.7;
+}
+.aquabar-moment-title {
+  font-family: var(--font-heading);
+  font-size: 4vw;
+  color: var(--color-white);
+  line-height: 1;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.03em;
+}
+.aquabar-moment-desc {
+  font-family: var(--font-body);
+  font-size: 1.1vw;
+  font-weight: 300;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  max-width: 420px;
+}
+
+/* Responsive: stack on mobile */
+@media (max-width: 768px) {
+  .aquabar-split { flex-direction: column; }
+  .aquabar-photo-col { width: 100%; height: 40vh; }
+  .aquabar-photo-wrap { position: relative; height: 40vh; }
+  .aquabar-moments-col { width: 100%; }
+  .aquabar-moment {
+    min-height: auto;
+    padding: 4rem clamp(1.5rem, 5vw, 3rem);
+  }
+  .aquabar-moment-title { font-size: 1.6rem; }
+  .aquabar-moment-desc { font-size: 0.95rem; }
+}
+
+/* CTA band */
+.aquabar-cta-band {
+  width: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1rem;
+}
+.aquabar-cta-link {
+  font-family: var(--font-heading);
+  font-size: 3vw;
+  color: var(--color-accent);
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: color 0.3s, letter-spacing 0.4s;
+}
+.aquabar-cta-link:hover {
+  color: var(--color-white);
+  letter-spacing: 0.14em;
+}
+@media (max-width: 768px) {
+  .aquabar-cta-link { font-size: 1.4rem; }
+}
 
 /* ============================================================
    ALIMENTOS — Light bg
@@ -572,14 +668,6 @@ ul { list-style: none; }
 .info-text span { font-size: 0.85rem; color: var(--color-text-muted); }
 .map-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.5rem; background: var(--color-accent); color: var(--color-primary-deeper); border-radius: 999px; font-weight: 700; font-size: 0.9rem; transition: transform 0.3s, box-shadow 0.3s; margin-top: 0.5rem; }
 .map-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,214,10,0.3); }
-
-/* ============================================================
-   CONVENIOS — Light bg
-   ============================================================ */
-.convenios { padding: 4rem clamp(1rem,4vw,3rem); background: var(--color-light); }
-.partners-grid { display: flex; align-items: center; justify-content: center; gap: 3rem; flex-wrap: wrap; max-width: 800px; margin: 2rem auto 0; }
-.partner-logo { height: 48px; opacity: 0.4; filter: grayscale(1); transition: opacity 0.4s, filter 0.4s, transform 0.3s; }
-.partner-logo:hover { opacity: 1; filter: grayscale(0); transform: scale(1.1); }
 
 /* ============================================================
    FOOTER — Navy only

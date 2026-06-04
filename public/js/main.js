@@ -105,14 +105,13 @@
   var heroSection = document.getElementById('hero');
   var heroBg = document.getElementById('heroBg');
   var attractionsSection = document.getElementById('atracciones');
-  var aquabarSection = document.getElementById('aquabar');
-  var aquabarBg = document.getElementById('aquabarBg');
   var footerEl = document.getElementById('footer');
   var footerLogo = document.getElementById('footerLogo');
 
   var heroH = heroSection ? heroSection.offsetHeight : 0;
   var attrTop = 0, attrH = 0;
   var aqTop = 0, aqH = 0;
+  var aquabarSection = document.getElementById('aquabar');
 
   function cachePositions() {
     if (attractionsSection) { attrTop = attractionsSection.offsetTop; attrH = attractionsSection.offsetHeight; }
@@ -142,19 +141,10 @@
 
         /* Attractions carousel (handled by separate module) */
 
-        /* AquaBar */
-        if (aqH > 0 && aquabarBg) {
-          var pAq = Math.max(0, Math.min(1, (scrollY - aqTop) / aqH));
-          aquabarBg.style.transform = 'translateY(' + ((pAq - 0.5) * -80) + 'px)';
-          var texts = ['aqText1', 'aqText2', 'aqText3', 'aqText4'];
-          var ranges = [[0.05, 0.25], [0.25, 0.45], [0.45, 0.65], [0.65, 0.85]];
-          texts.forEach(function (id, idx) {
-            var el = document.getElementById(id);
-            if (el) el.classList.toggle('active', pAq >= ranges[idx][0] && pAq < ranges[idx][1]);
-          });
-          var cta = document.getElementById('aqText4');
-          if (cta) cta.classList.toggle('active', pAq >= 0.75);
-        }
+
+
+        /* AquaBar parallax */
+        updateAqParallax();
 
         /* Footer inverse parallax */
         if (footerLogo && footerEl) {
@@ -226,6 +216,19 @@
   document.querySelectorAll('.stat-card, .gallery-item').forEach(function (el) {
     revealObserver.observe(el);
   });
+
+  /* ---------------------------------------------------------
+     7c. AQUABAR — Sticky photo parallax
+     --------------------------------------------------------- */
+  var aquabarPhoto = document.querySelector('.aquabar-photo-img');
+
+  function updateAqParallax() {
+    if (!aquabarPhoto || aqH <= 0) return;
+    if (window.innerWidth <= 768) return;
+    var scrollY = window.scrollY;
+    var progress = Math.max(0, Math.min(1, (scrollY - aqTop) / aqH));
+    aquabarPhoto.style.transform = 'translateY(' + ((progress - 0.5) * -60) + 'px) scale(1.05)';
+  }
 
   /* ---------------------------------------------------------
      7b. ATTRACTIONS CAROUSEL — Coverflow auto-play with loop

@@ -1,33 +1,37 @@
 <section class="aquabar" id="aquabar">
-  <div class="aquabar-sticky">
-    <div class="aquabar-bg" id="aquabarBg">
-      <div class="aquabar-bg-fallback"></div>
-      <img src="/aquabar-bg.jpg" alt="AquaBar" loading="lazy" />
-    </div>
-    <div class="aquabar-overlay"></div>
-    <div class="aquabar-texts">
-      <div class="aquabar-text active" id="aqText1">
-        <h3>AquaBar &amp; Barra Exterior</h3>
-        <p>Coctelería tropical con vista a la alberca</p>
-        <div class="aquabar-drinks">
-          <span class="aquabar-drink">🍹 Michelada Splash</span>
-          <span class="aquabar-drink">🍍 Piña Colada</span>
-          <span class="aquabar-drink">🌊 Laguna Azul</span>
-          <span class="aquabar-drink">☕ Frape Oreo</span>
-        </div>
-      </div>
-      <div class="aquabar-text" id="aqText2">
-        <h3>Súper Micheladas Splash</h3>
-        <p>Nuestra especialidad — receta secreta con chamoy, tajín y el sabor que solo Homún puede darte.</p>
-      </div>
-      <div class="aquabar-text" id="aqText3">
-        <h3>Columpios en la Barra Exterior</h3>
-        <p>El spot más instagrameable del parque. Disfruta tu bebida columpiándote sobre el agua.</p>
-      </div>
-      <div class="aquabar-text" id="aqText4">
-        <a href="https://wa.me/529994868036" target="_blank" rel="noopener" class="aquabar-cta">Ver menú completo</a>
-      </div>
+  <div class="aquabar-split">
+  <!-- Left column: sticky photo with parallax -->
+  <div class="aquabar-photo-col">
+    <div class="aquabar-photo-wrap">
+      <div class="aquabar-photo-fallback"></div>
+      <img class="aquabar-photo-img" src="/aquabar-drink.jpg" alt="Coctel tropical" />
     </div>
   </div>
-  <div class="aquabar-spacer"></div>
+
+  <!-- Right column: scrollable moments -->
+  <div class="aquabar-moments-col">
+    <div class="aquabar-moment">
+      <span class="aquabar-moment-num">01</span>
+      <h3 class="aquabar-moment-title">Coctelería Tropical</h3>
+      <p class="aquabar-moment-desc">Recetas únicas con ingredientes frescos directo de la huerta. Cada bebida es una experiencia que captura el espíritu del Yucatán.</p>
+    </div>
+
+    <div class="aquabar-moment">
+      <span class="aquabar-moment-num">02</span>
+      <h3 class="aquabar-moment-title">Micheladas Splash</h3>
+      <p class="aquabar-moment-desc">Nuestra receta secreta con chamoy, tajín y ese sabor que solo Homún puede darte. La más pedida del parque.</p>
+    </div>
+
+    <div class="aquabar-moment">
+      <span class="aquabar-moment-num">03</span>
+      <h3 class="aquabar-moment-title">Barra Exterior</h3>
+      <p class="aquabar-moment-desc">El spot más instagrameable del parque. Columpios sobre el agua, vista panorámica y la mejor vibra para disfrutar tu bebida.</p>
+    </div>
+  </div>
+  </div>
+
+  <!-- Full-width CTA band -->
+  <div class="aquabar-cta-band">
+    <a href="https://wa.me/529994868036" target="_blank" rel="noopener" class="aquabar-cta-link">Ver menú completo &rarr;</a>
+  </div>
 </section>
