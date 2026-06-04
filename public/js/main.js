@@ -218,35 +218,9 @@
   });
 
   /* ---------------------------------------------------------
-     7c. AQUABAR — Sticky photo parallax + crossfade
+     7c. AQUABAR — No-op (photos stacked vertically, no parallax needed)
      --------------------------------------------------------- */
-  var aqPhotos = document.querySelectorAll('.aquabar-photo-img');
-  var aqMoments = document.querySelectorAll('.aquabar-moment');
-
-  function updateAqParallax() {
-    if (aqPhotos.length === 0 || aqH <= 0) return;
-    if (window.innerWidth <= 768) return;
-    var scrollY = window.scrollY;
-    var progress = Math.max(0, Math.min(1, (scrollY - aqTop) / aqH));
-    aqPhotos.forEach(function (photo) {
-      photo.style.transform = 'translateY(' + ((progress - 0.5) * -60) + 'px) scale(1.05)';
-    });
-  }
-
-  /* Crossfade images based on which moment is in view */
-  if (aqMoments.length > 0 && aqPhotos.length > 0) {
-    var momentObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        var idx = Array.prototype.indexOf.call(aqMoments, entry.target);
-        if (idx < 0) return;
-        aqPhotos.forEach(function (photo, i) {
-          photo.classList.toggle('active', i === idx);
-        });
-      });
-    }, { threshold: 0.5 });
-    aqMoments.forEach(function (m) { momentObserver.observe(m); });
-  }
+  function updateAqParallax() { /* photos now stacked, no parallax */ }
 
   /* ---------------------------------------------------------
      7b. ATTRACTIONS CAROUSEL — Coverflow auto-play with loop
