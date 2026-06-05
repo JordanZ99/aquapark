@@ -93,8 +93,8 @@ ul { list-style: none; }
   background: rgba(0,119,182,0.92);
   backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
 }
-.nav-logo-wrap { display: flex; align-items: center; line-height: 1; }
-.nav-logo-img { height: 48px; width: auto; object-fit: contain; }
+.nav-logo-wrap { display: flex; align-items: center; line-height: 1; padding-top: 1rem; }
+.nav-logo-img { height: 96px; width: auto; object-fit: contain; }
 
 /* Desktop nav links */
 .nav-links-desktop { display: flex; align-items: center; gap: 1.5rem; }
