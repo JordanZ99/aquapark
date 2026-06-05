@@ -306,8 +306,7 @@
       var delay = parseFloat(el.getAttribute('data-delay')) || 0;
       setTimeout(function () {
         el.classList.add('visible');
-        var bar = el.querySelector('.adrenaline-fill');
-        if (bar) bar.style.width = bar.getAttribute('data-width') + '%';
+
         var num = el.querySelector('.stat-number[data-target]');
         if (num) animateCountUp(num);
       }, delay * 1000);
@@ -360,12 +359,7 @@
       dots.forEach(function (d) { d.classList.remove('active'); });
       dots[newIdx].classList.add('active');
 
-      /* Animate adrenaline bar on new slide */
-      var bar = slides[newIdx].querySelector('.adrenaline-fill');
-      if (bar) bar.style.width = '0%';
-      setTimeout(function () {
-        if (bar) bar.style.width = bar.getAttribute('data-width') + '%';
-      }, 200);
+
     }
 
     function goToSlide(idx) {
@@ -426,8 +420,6 @@
     /* Initialize */
     updatePositions(0, -1);
     startAutoplay();
-    var firstBar = slides[0].querySelector('.adrenaline-fill');
-    if (firstBar) setTimeout(function () { firstBar.style.width = firstBar.getAttribute('data-width') + '%'; }, 500);
   }
 
   /* ---------------------------------------------------------
@@ -511,9 +503,11 @@
         var nameEl = cards[i].querySelector('.attr-card-name');
         var descEl = cards[i].querySelector('.attr-card-desc');
         var badgeEl = cards[i].querySelector('.attr-card-badge');
+        var vibeEl = cards[i].querySelector('.attr-card-vibe');
         if (nameEl) nameEl.textContent = a.name;
         if (descEl) descEl.textContent = a.desc;
         if (badgeEl) badgeEl.textContent = a.badgeLabel;
+        if (vibeEl) vibeEl.textContent = a.vibe;
       });
     }
   }

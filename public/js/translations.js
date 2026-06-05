@@ -171,18 +171,18 @@ var TRANSLATIONS = {
   /* --- ATTRACTIONS DATA --- */
   'attractions': {
     es: [
-      { name: 'Resbaladilla del Sol', badge: 'extreme', badgeLabel: 'Extremo', adrenaline: 95, desc: 'El tobogán más alto del parque. Caída libre de adrenalina pura desde lo más alto de nuestra torre central.' },
-      { name: 'El Huracán', badge: 'extreme', badgeLabel: 'Extremo', adrenaline: 88, desc: 'Giros, curvas cerradas y velocidad máxima en nuestro segundo tobogán de tubo cerrado.' },
-      { name: 'Oasis Olimpo', badge: 'family', badgeLabel: 'Familiar', adrenaline: 0, desc: 'Alberca de oleaje artificial perfecta para toda la familia. Camastros dentro del agua incluidos.' },
-      { name: 'Zona Kids', badge: 'kids', badgeLabel: 'Niños', adrenaline: 30, desc: 'Chapoteadero con resbaladillas, juegos de agua y área segura diseñada especialmente para los más pequeños.' },
-      { name: 'La Laguna', badge: 'family', badgeLabel: 'Familiar', adrenaline: 65, desc: 'Alberca principal con sombrillas acuáticas, camastros flotantes y vista a las palapas. El centro del parque.' }
+      { name: 'Resbaladilla del Sol', badge: 'extreme', badgeLabel: 'Extremo', vibe: 'Adrenalina', desc: 'El tobogán más alto del parque. Caída libre de adrenalina pura desde lo más alto de nuestra torre central.' },
+      { name: 'El Huracán', badge: 'extreme', badgeLabel: 'Extremo', vibe: 'Emoción', desc: 'Giros, curvas cerradas y velocidad máxima en nuestro segundo tobogán de tubo cerrado.' },
+      { name: 'Oasis Olimpo', badge: 'family', badgeLabel: 'Familiar', vibe: 'Relajación', desc: 'Alberca de oleaje artificial perfecta para toda la familia. Camastros dentro del agua incluidos.' },
+      { name: 'Zona Kids', badge: 'kids', badgeLabel: 'Niños', vibe: 'Diversión', desc: 'Chapoteadero con resbaladillas, juegos de agua y área segura diseñada especialmente para los más pequeños.' },
+      { name: 'La Laguna', badge: 'family', badgeLabel: 'Familiar', vibe: 'Diversión', desc: 'Alberca principal con sombrillas acuáticas, camastros flotantes y vista a las palapas. El centro del parque.' }
     ],
     en: [
-      { name: 'Sun Slide', badge: 'extreme', badgeLabel: 'Extreme', adrenaline: 95, desc: 'The park\'s tallest slide. Pure adrenaline free fall from the top of our central tower.' },
-      { name: 'The Hurricane', badge: 'extreme', badgeLabel: 'Extreme', adrenaline: 88, desc: 'Turns, tight curves and maximum speed on our second enclosed tube slide.' },
-      { name: 'Olympus Oasis', badge: 'family', badgeLabel: 'Family', adrenaline: 0, desc: 'Artificial wave pool perfect for the whole family. Lounge chairs in the water included.' },
-      { name: 'Kids Zone', badge: 'kids', badgeLabel: 'Kids', adrenaline: 30, desc: 'Splash pad with slides, water games and a safe area designed especially for the little ones.' },
-      { name: 'The Lagoon', badge: 'family', badgeLabel: 'Family', adrenaline: 65, desc: 'Main pool with water umbrellas, floating loungers and palapa views. The center of the park.' }
+      { name: 'Sun Slide', badge: 'extreme', badgeLabel: 'Extreme', vibe: 'Adrenaline', desc: 'The park\'s tallest slide. Pure adrenaline free fall from the top of our central tower.' },
+      { name: 'The Hurricane', badge: 'extreme', badgeLabel: 'Extreme', vibe: 'Thrill', desc: 'Turns, tight curves and maximum speed on our second enclosed tube slide.' },
+      { name: 'Olympus Oasis', badge: 'family', badgeLabel: 'Family', vibe: 'Relaxation', desc: 'Artificial wave pool perfect for the whole family. Lounge chairs in the water included.' },
+      { name: 'Kids Zone', badge: 'kids', badgeLabel: 'Kids', vibe: 'Fun', desc: 'Splash pad with slides, water games and a safe area designed especially for the little ones.' },
+      { name: 'The Lagoon', badge: 'family', badgeLabel: 'Family', vibe: 'Fun', desc: 'Main pool with water umbrellas, floating loungers and palapa views. The center of the park.' }
     ]
   }
 };
