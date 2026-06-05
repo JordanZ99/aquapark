@@ -82,18 +82,53 @@
      2b. HERO BACKGROUND SLIDESHOW
      --------------------------------------------------------- */
   var heroSlides = document.querySelectorAll('#heroBg .hero-slide');
+  var heroPrevBtn = document.getElementById('heroPrev');
+  var heroNextBtn = document.getElementById('heroNext');
   if (heroSlides.length > 1) {
     var heroCurrentSlide = 0;
     var heroInterval = null;
 
-    function heroNextSlide() {
+    function heroGoToSlide(idx) {
       var prev = heroCurrentSlide;
-      heroCurrentSlide = (heroCurrentSlide + 1) % heroSlides.length;
+      heroCurrentSlide = ((idx % heroSlides.length) + heroSlides.length) % heroSlides.length;
       heroSlides[prev].classList.remove('active');
       heroSlides[heroCurrentSlide].classList.add('active');
     }
 
-    heroInterval = setInterval(heroNextSlide, 5000);
+    function heroNextSlide() {
+      heroGoToSlide(heroCurrentSlide + 1);
+    }
+
+    function heroPrevSlide() {
+      heroGoToSlide(heroCurrentSlide - 1);
+    }
+
+    function heroStartAutoplay() {
+      heroStopAutoplay();
+      heroInterval = setInterval(heroNextSlide, 10000);
+    }
+    function heroStopAutoplay() {
+      if (heroInterval) { clearInterval(heroInterval); heroInterval = null; }
+    }
+
+    if (heroPrevBtn) heroPrevBtn.addEventListener('click', function () { heroPrevSlide(); heroStartAutoplay(); });
+    if (heroNextBtn) heroNextBtn.addEventListener('click', function () { heroNextSlide(); heroStartAutoplay(); });
+
+    /* Touch/swipe support for mobile */
+    var heroTouchStartX = 0;
+    var heroEl = document.getElementById('hero');
+    if (heroEl) {
+      heroEl.addEventListener('touchstart', function (e) { heroTouchStartX = e.touches[0].clientX; }, { passive: true });
+      heroEl.addEventListener('touchend', function (e) {
+        var diff = heroTouchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) heroNextSlide(); else heroPrevSlide();
+          heroStartAutoplay();
+        }
+      }, { passive: true });
+    }
+
+    heroStartAutoplay();
   }
 
   /* ---------------------------------------------------------
