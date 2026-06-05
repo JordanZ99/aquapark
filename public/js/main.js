@@ -41,7 +41,7 @@ window.addEventListener('load', function () { window.scrollTo(0, 0); });
     heroRevealPlayed = true;
     if (typeof gsap === 'undefined') {
       /* Fallback: just show everything */
-      document.querySelectorAll('.hero-content, .hero-title .h-letter, .hero-subtitle, .hero-ctas, .hero-scroll').forEach(function (el) {
+      document.querySelectorAll('.hero-content, .hero-title .h-letter, .hero-subtitle, .hero-ctas, .hero-scroll, .navbar .nav-logo-wrap, .navbar .nav-links-desktop, .navbar .nav-hamburger').forEach(function (el) {
         el.style.opacity = '1';
         el.style.transform = 'none';
         el.style.filter = 'none';
@@ -71,7 +71,18 @@ window.addEventListener('load', function () { window.scrollTo(0, 0); });
       /* 5) Scroll indicator */
       .to('.hero-scroll', {
         opacity: 1, duration: 0.6
-      }, '-=0.2');
+      }, '-=0.2')
+      /* 6) Navbar logo */
+      .to('.navbar .nav-logo-wrap', {
+        y: 0, opacity: 1, duration: 0.6, ease: 'power2.out'
+      }, '-=0.3')
+      /* 7) Navbar links + hamburger */
+      .to('.navbar .nav-links-desktop', {
+        y: 0, opacity: 1, duration: 0.5, ease: 'power2.out'
+      }, '-=0.35')
+      .to('.navbar .nav-hamburger', {
+        y: 0, opacity: 1, duration: 0.5, ease: 'power2.out'
+      }, '-=0.45');
   }
 
   function hidePreloader() {
@@ -269,7 +280,6 @@ window.addEventListener('load', function () { window.scrollTo(0, 0); });
   var scrollPill = document.createElement('div');
   scrollPill.className = 'custom-scroll-pill';
   document.body.appendChild(scrollPill);
-  var pillHideTimeout = null;
   var isDragging = false;
   var dragStartY = 0;
   var dragStartScroll = 0;
@@ -294,14 +304,6 @@ window.addEventListener('load', function () { window.scrollTo(0, 0); });
     scrollPill.style.top = (progress * m.maxTop) + 'px';
   }
 
-  function showPill() {
-    scrollPill.classList.add('visible');
-    if (pillHideTimeout) clearTimeout(pillHideTimeout);
-    pillHideTimeout = setTimeout(function () {
-      if (!isDragging) scrollPill.classList.remove('visible');
-    }, 1200);
-  }
-
   /* Drag to scroll */
   scrollPill.addEventListener('mousedown', function (e) {
     e.preventDefault();
@@ -323,7 +325,6 @@ window.addEventListener('load', function () { window.scrollTo(0, 0); });
     /* Move pill in sync with the drag */
     var progress = newScroll / (m.scrollH - m.clientH);
     scrollPill.style.top = (progress * m.maxTop) + 'px';
-    showPill();
   });
 
   document.addEventListener('mouseup', function () {
@@ -331,11 +332,9 @@ window.addEventListener('load', function () { window.scrollTo(0, 0); });
     isDragging = false;
     scrollPill.classList.remove('dragging');
     document.body.style.userSelect = '';
-    showPill();
   });
 
   window.addEventListener('scroll', updateScrollPill, { passive: true });
-  window.addEventListener('scroll', showPill, { passive: true });
   window.addEventListener('resize', updateScrollPill, { passive: true });
   updateScrollPill();
 
