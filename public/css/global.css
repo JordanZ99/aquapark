@@ -63,10 +63,10 @@ body {
   right: 6px;
   width: 5px;
   border-radius: 999px;
-  background: var(--color-white);
+  background: var(--color-accent);
   z-index: 9998;
   opacity: 0;
-  transition: opacity 0.3s ease, width 0.2s ease;
+  transition: opacity 0.3s ease, width 0.2s ease, background 0.3s ease;
   cursor: grab;
 }
 
@@ -84,6 +84,10 @@ body {
   opacity: 1;
   cursor: grabbing;
   transition: opacity 0.15s ease, width 0.15s ease;
+}
+
+.custom-scroll-pill.on-light {
+  background: var(--color-primary-deeper);
 }
 
 
