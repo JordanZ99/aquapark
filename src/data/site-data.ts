@@ -1,7 +1,7 @@
 export const attractions = [
   { name: 'Resbaladilla del Sol', badge: 'extreme', badgeLabel: 'Extremo', adrenaline: 95, desc: 'El tobogán más alto del parque. Caída libre de adrenalina pura desde lo más alto de nuestra torre central.', img: '/attraction-1.jpg', bg: 'linear-gradient(135deg, #012A4A, #0077B6)' },
   { name: 'El Huracán', badge: 'extreme', badgeLabel: 'Extremo', adrenaline: 88, desc: 'Giros, curvas cerradas y velocidad máxima en nuestro segundo tobogán de tubo cerrado.', img: '/attraction-2.jpg', bg: 'linear-gradient(135deg, #023E8A, #00B4D8)' },
-  { name: 'Oasis Olimpo', badge: 'family', badgeLabel: 'Familiar', adrenaline: 0, desc: 'Alberca de oleaje artificial perfecta para toda la familia. Camastros dentro del agua incluidos.', img: '/attraction-3.jpg', bg: 'linear-gradient(135deg, #0077B6, #90E0EF)' },
+  { name: 'Oasis Olimpo', badge: 'family', badgeLabel: 'Familiar', adrenaline: 0, desc: 'Alberca con asientos dentro del agua perfecta relajarse. y admirar el paisaje.', img: '/attraction-3.jpg', bg: 'linear-gradient(135deg, #0077B6, #90E0EF)' },
   { name: 'Zona Kids', badge: 'kids', badgeLabel: 'Niños', adrenaline: 30, desc: 'Chapoteadero con resbaladillas, juegos de agua y área segura diseñada especialmente para los más pequeños.', img: '/attraction-4.jpg', bg: 'linear-gradient(135deg, #0096C7, #90E0EF)' },
   { name: 'La Laguna', badge: 'family', badgeLabel: 'Familiar', adrenaline: 65, desc: 'Alberca principal con sombrillas acuáticas, camastros flotantes y vista a las palapas. El centro del parque.', img: '/attraction-5.jpg', bg: 'linear-gradient(135deg, #023E8A, #0077B6)' },
 ];

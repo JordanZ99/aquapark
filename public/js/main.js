@@ -426,7 +426,55 @@
   });
 
   /* ---------------------------------------------------------
-     10. INITIAL CALL
+     10. LANGUAGE SWITCH (ES / EN)
+     --------------------------------------------------------- */
+  var currentLang = localStorage.getItem('splash-lang') || 'es';
+  var langToggleDesktop = document.getElementById('langToggleDesktop');
+  var langToggleMobile = document.getElementById('langToggleMobile');
+
+  function applyLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('splash-lang', lang);
+    document.documentElement.setAttribute('lang', lang === 'es' ? 'es' : 'en');
+    if (langToggleDesktop) langToggleDesktop.textContent = lang === 'es' ? 'EN' : 'ES';
+    if (langToggleMobile) langToggleMobile.textContent = lang === 'es' ? 'EN' : 'ES';
+    if (typeof TRANSLATIONS === 'undefined') return;
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n');
+      if (TRANSLATIONS[key] && TRANSLATIONS[key][lang]) {
+        var val = TRANSLATIONS[key][lang];
+        if (val.indexOf('\n') !== -1) {
+          el.innerHTML = val.replace(/\n/g, '<br>');
+        } else {
+          el.textContent = val;
+        }
+      }
+    });
+    /* Update Atracciones carousel cards */
+    if (TRANSLATIONS.attractions && TRANSLATIONS.attractions[lang]) {
+      var cards = document.querySelectorAll('.carousel-slide');
+      TRANSLATIONS.attractions[lang].forEach(function (a, i) {
+        if (!cards[i]) return;
+        var nameEl = cards[i].querySelector('.attr-card-name');
+        var descEl = cards[i].querySelector('.attr-card-desc');
+        var badgeEl = cards[i].querySelector('.attr-card-badge');
+        if (nameEl) nameEl.textContent = a.name;
+        if (descEl) descEl.textContent = a.desc;
+        if (badgeEl) badgeEl.textContent = a.badgeLabel;
+      });
+    }
+  }
+
+  function toggleLang() {
+    applyLang(currentLang === 'es' ? 'en' : 'es');
+  }
+
+  if (langToggleDesktop) langToggleDesktop.addEventListener('click', toggleLang);
+  if (langToggleMobile) langToggleMobile.addEventListener('click', toggleLang);
+  applyLang(currentLang);
+
+  /* ---------------------------------------------------------
+     11. INITIAL CALL
      --------------------------------------------------------- */
   onScroll();
 
