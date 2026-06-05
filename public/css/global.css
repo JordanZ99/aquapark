@@ -581,9 +581,116 @@ ul { list-style: none; }
 .souvenirs-list { columns: 2; column-gap: 1.5rem; }
 .souvenirs-list li { font-size: 0.9rem; color: var(--color-text-muted); padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); break-inside: avoid; }
 .souvenirs-list li::before { content: '• '; color: var(--color-accent); }
-.souvenirs-img { border-radius: 1rem; overflow: hidden; position: relative; }
-.souvenirs-img-fallback { width: 100%; aspect-ratio: 4/3; background: linear-gradient(135deg, #023E8A, #00B4D8); border-radius: 1rem; }
-.souvenirs-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 1rem; position: absolute; inset: 0; }
+.souvenirs-img { display: flex; justify-content: center; align-items: center; }
+
+/* Instagram Post Frame */
+.ig-post {
+  background: var(--color-white);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  max-width: 340px;
+  width: 100%;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s;
+}
+.ig-post:hover {
+  transform: translateY(-4px) rotate(-0.5deg);
+  box-shadow: 0 16px 50px rgba(0,0,0,0.35);
+}
+
+/* IG Header */
+.ig-post-header {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 0.85rem;
+  gap: 0.6rem;
+}
+.ig-post-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: conic-gradient(from 0deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5, #feda75);
+  padding: 2px;
+}
+.ig-post-avatar::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--color-white);
+  padding: 2px;
+}
+.ig-post-user {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+.ig-post-username {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  line-height: 1.2;
+}
+.ig-post-location {
+  font-size: 0.65rem;
+  color: var(--color-text-dark-muted);
+  line-height: 1.2;
+}
+.ig-post-dots {
+  color: var(--color-text-dark);
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+/* IG Image — 4:5 portrait ratio */
+.ig-post-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: linear-gradient(135deg, #023E8A, #00B4D8);
+}
+.souvenirs-img-fallback { width: 100%; height: 100%; background: linear-gradient(135deg, #023E8A, #00B4D8); }
+.ig-post-image img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* IG Actions */
+.ig-post-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 0.85rem 0;
+  color: var(--color-text-dark);
+}
+.ig-post-actions-left {
+  display: flex;
+  gap: 1rem;
+}
+.ig-post-actions svg {
+  cursor: pointer;
+  transition: transform 0.2s, color 0.2s;
+}
+.ig-post-actions svg:hover {
+  transform: scale(1.15);
+  color: #ed4956;
+}
+
+/* IG Likes */
+.ig-post-likes {
+  padding: 0.3rem 0.85rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-text-dark);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .ig-post {
+    max-width: 300px;
+  }
+}
 
 /* ============================================================
    SERVICIOS — Light bg
