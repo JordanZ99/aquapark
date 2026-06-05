@@ -7,6 +7,11 @@
    Gallery filters
    Lenis for smooth scroll
    ============================================================ */
+/* Scroll to top on reload — runs outside IIFE for earliest execution */
+history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+window.addEventListener('load', function () { window.scrollTo(0, 0); });
+
 (function () {
   'use strict';
 
@@ -25,10 +30,59 @@
       preloaderLogo.appendChild(sp);
     }
   }
+  /* Lock scroll while preloader is visible (body.preloading handles CSS lock) */
+  function preventScroll(e) { e.preventDefault(); }
+  document.body.addEventListener('touchmove', preventScroll, { passive: false });
+
+  var heroRevealPlayed = false;
+
+  function playHeroReveal() {
+    if (heroRevealPlayed) return;
+    heroRevealPlayed = true;
+    if (typeof gsap === 'undefined') {
+      /* Fallback: just show everything */
+      document.querySelectorAll('.hero-content, .hero-title .h-letter, .hero-subtitle, .hero-ctas, .hero-scroll').forEach(function (el) {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+        el.style.filter = 'none';
+      });
+      return;
+    }
+    var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    /* 1) Slide-up hero content */
+    tl.to('.hero-content', { y: 0, opacity: 1, duration: 0.9 })
+      /* 2) Mask-reveal letters with blur */
+      .to('.hero-title .h-letter', {
+        y: '0%',
+        opacity: 1,
+        filter: 'blur(0px)',
+        duration: 0.7,
+        stagger: 0.07,
+        ease: 'power4.out'
+      }, '-=0.4')
+      /* 3) Subtitle */
+      .to('.hero-subtitle', {
+        y: 0, opacity: 1, duration: 0.6
+      }, '-=0.3')
+      /* 4) CTAs */
+      .to('.hero-ctas', {
+        y: 0, opacity: 1, duration: 0.5
+      }, '-=0.25')
+      /* 5) Scroll indicator */
+      .to('.hero-scroll', {
+        opacity: 1, duration: 0.6
+      }, '-=0.2');
+  }
+
   function hidePreloader() {
     if (preloader) {
       preloader.classList.add('done');
-      setTimeout(function () { preloader.style.display = 'none'; }, 900);
+      setTimeout(function () {
+        preloader.style.display = 'none';
+        document.body.classList.remove('preloading');
+        document.body.removeEventListener('touchmove', preventScroll);
+        playHeroReveal();
+      }, 900);
     }
   }
   window.addEventListener('load', function () { setTimeout(hidePreloader, 2600); });
@@ -52,29 +106,16 @@
   } else { initLenis(); }
 
   /* ---------------------------------------------------------
-     2. HERO — GSAP Stagger animation
+     2. HERO — Create letter spans (animation triggered by preloader callback)
      --------------------------------------------------------- */
   var heroTitle = document.getElementById('heroTitle');
-  if (heroTitle && typeof gsap !== 'undefined') {
+  if (heroTitle) {
     var hText = 'SPLASH';
     for (var i = 0; i < hText.length; i++) {
       var span = document.createElement('span');
       span.className = 'h-letter';
       span.textContent = hText[i];
       heroTitle.appendChild(span);
-    }
-    gsap.fromTo('#heroTitle .h-letter',
-      { y: 120, opacity: 0, rotateX: -40 },
-      { y: 0, opacity: 1, rotateX: 0, duration: 0.8, stagger: 0.08, ease: 'back.out(1.4)', delay: 0.3 }
-    );
-  } else if (heroTitle) {
-    var hText2 = 'SPLASH';
-    for (var i2 = 0; i2 < hText2.length; i2++) {
-      var span2 = document.createElement('span');
-      span2.className = 'h-letter';
-      span2.textContent = hText2[i2];
-      span2.style.animationDelay = (0.3 + i2 * 0.08) + 's';
-      heroTitle.appendChild(span2);
     }
   }
 

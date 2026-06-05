@@ -51,6 +51,18 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Locked scroll while preloader is visible — applied via class on <body> from HTML */
+body.preloading {
+  overflow: hidden;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+body.preloading.lenis {
+  overflow: hidden;
+}
+
 h1,
 h2,
 h3,
@@ -666,6 +678,8 @@ ul {
   z-index: 2;
   text-align: center;
   padding: 0 1.5rem;
+  opacity: 0;
+  transform: translateY(60px);
 }
 
 .hero-title {
@@ -678,15 +692,8 @@ ul {
 .hero-title .h-letter {
   display: inline-block;
   opacity: 0;
-  transform: translateY(120px);
-  animation: letterIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes letterIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  transform: translateY(100%);
+  filter: blur(8px);
 }
 
 .hero-subtitle {
@@ -697,8 +704,7 @@ ul {
   letter-spacing: 0.06em;
   margin-bottom: 2rem;
   opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUp 1s 1.5s ease forwards;
+  transform: translateY(30px);
 }
 
 .hero-ctas {
@@ -707,7 +713,7 @@ ul {
   justify-content: center;
   flex-wrap: wrap;
   opacity: 0;
-  animation: fadeUp 1s 1.8s ease forwards;
+  transform: translateY(30px);
 }
 
 .hero-cta-primary {
@@ -752,7 +758,6 @@ ul {
   align-items: center;
   gap: 0.5rem;
   opacity: 0;
-  animation: fadeUp 1s 2.2s ease forwards;
   z-index: 2;
 }
 
@@ -798,17 +803,7 @@ ul {
   }
 }
 
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 /* Hide scroll indicator on mobile */
 @media (max-width: 900px) {
