@@ -93,9 +93,8 @@ ul { list-style: none; }
   background: rgba(0,119,182,0.92);
   backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
 }
-.nav-logo-wrap { display: flex; flex-direction: column; line-height: 1; }
-.nav-logo { font-family: var(--font-heading); font-size: 1.5rem; letter-spacing: 0.12em; color: var(--color-white); }
-.nav-logo-sub { font-size: 0.55rem; color: rgba(255,255,255,0.5); letter-spacing: 0.04em; }
+.nav-logo-wrap { display: flex; align-items: center; line-height: 1; }
+.nav-logo-img { height: 48px; width: auto; object-fit: contain; }
 
 /* Desktop nav links */
 .nav-links-desktop { display: flex; align-items: center; gap: 1.5rem; }
@@ -156,10 +155,10 @@ ul { list-style: none; }
   height: 80px; flex-shrink: 0;
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
-.nav-panel-logo {
-  font-family: var(--font-heading);
-  font-size: 1.6rem; letter-spacing: 0.12em;
-  color: var(--color-white);
+.nav-panel-logo-img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
 }
 /* Panel links — scrollable area */
 .nav-panel-links {
@@ -612,15 +611,14 @@ ul { list-style: none; }
   flex-shrink: 0;
   background: conic-gradient(from 0deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5, #feda75);
   padding: 2px;
+  overflow: hidden;
 }
-.ig-post-avatar::after {
-  content: '';
-  display: block;
+.ig-post-avatar-img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
+  object-fit: cover;
   background: var(--color-white);
-  padding: 2px;
 }
 .ig-post-user {
   display: flex;
