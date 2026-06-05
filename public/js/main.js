@@ -79,6 +79,24 @@
   }
 
   /* ---------------------------------------------------------
+     2b. HERO BACKGROUND SLIDESHOW
+     --------------------------------------------------------- */
+  var heroSlides = document.querySelectorAll('#heroBg .hero-slide');
+  if (heroSlides.length > 1) {
+    var heroCurrentSlide = 0;
+    var heroInterval = null;
+
+    function heroNextSlide() {
+      var prev = heroCurrentSlide;
+      heroCurrentSlide = (heroCurrentSlide + 1) % heroSlides.length;
+      heroSlides[prev].classList.remove('active');
+      heroSlides[heroCurrentSlide].classList.add('active');
+    }
+
+    heroInterval = setInterval(heroNextSlide, 5000);
+  }
+
+  /* ---------------------------------------------------------
      3. NAVBAR — Scroll state + mobile panel
      --------------------------------------------------------- */
   var navbar = document.getElementById('navbar');
