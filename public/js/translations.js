@@ -13,13 +13,13 @@ var TRANSLATIONS = {
   'nav-reservar':        { es: 'Reservar vía WhatsApp', en: 'Book via WhatsApp' },
 
   /* --- HERO --- */
-  'hero-subtitle':       { es: 'El verano más extremo de Yucatán · Homún, Yucatán', en: 'Yucatán\'s most extreme summer · Homún, Yucatán' },
+  'hero-subtitle':       { es: 'El verano más divertido de Yucatán · Homún, Yucatán', en: 'Yucatán\'s most fun summer · Homún, Yucatán' },
   'hero-cta-experience': { es: 'Vivir la experiencia', en: 'Experience it' },
   'hero-cta-whatsapp':   { es: 'WhatsApp',           en: 'WhatsApp' },
 
   /* --- MARQUEE --- */
   'marquee-1':           { es: '5 Albercas Gigantes',    en: '5 Giant Pools' },
-  'marquee-2':           { es: '2 Toboganes Extremos',   en: '2 Extreme Slides' },
+  'marquee-2':           { es: '2 Toboganes Divertidos',   en: '2 Fun Slides' },
   'marquee-3':           { es: 'Cancha de Voleibol',     en: 'Volleyball Court' },
   'marquee-4':           { es: 'AquaBar',                en: 'AquaBar' },
   'marquee-5':           { es: 'Palapas & Camastros',    en: 'Palapas & Lounge Chairs' },
@@ -29,7 +29,7 @@ var TRANSLATIONS = {
   /* --- NOSOTROS --- */
   'nosotros-title':      { es: 'El parque acuático más completo de', en: 'The most complete water park in' },
   'nosotros-title-accent': { es: 'Yucatán', en: 'Yucatán' },
-  'nosotros-desc':       { es: 'A solo 45 minutos de Mérida, en el corazón de Homún, Splash Parque Acuático te ofrece una experiencia única con 5 albercas gigantes, toboganes extremos, gastronomía yucateca, coctelería tropical y el mejor ambiente familiar del sureste mexicano.', en: 'Just 45 minutes from Mérida, in the heart of Homún, Splash Water Park offers a unique experience with 5 giant pools, extreme slides, Yucatecan cuisine, tropical cocktails and the best family atmosphere in southeastern Mexico.' },
+  'nosotros-desc':       { es: 'A solo 45 minutos de Mérida, en el corazón de Homún, Splash Parque Acuático te ofrece una experiencia única con 5 albercas gigantes, toboganes divertidos, gastronomía yucateca, coctelería tropical y el mejor ambiente familiar del sureste mexicano.', en: 'Just 45 minutes from Mérida, in the heart of Homún, Splash Water Park offers a unique experience with 5 giant pools, fun slides, Yucatecan cuisine, tropical cocktails and the best family atmosphere in southeastern Mexico.' },
   'feat-albercas':       { es: '5 Albercas',          en: '5 Pools' },
   'feat-toboganes':      { es: '2 Toboganes',         en: '2 Slides' },
   'feat-restaurante':    { es: 'Restaurante',         en: 'Restaurant' },
@@ -48,7 +48,7 @@ var TRANSLATIONS = {
   'num-title-accent':    { es: 'Experiencia', en: 'Experience' },
   'stat-visitors':       { es: 'Visitantes al año', en: 'Visitors per year' },
   'stat-pools':          { es: 'Albercas gigantes', en: 'Giant pools' },
-  'stat-slides':         { es: 'Toboganes extremos', en: 'Extreme slides' },
+  'stat-slides':         { es: 'Toboganes divertidos', en: 'Fun slides' },
   'stat-years':          { es: 'Años de historia', en: 'Years of history' },
 
   /* --- AQUABAR --- */
@@ -171,8 +171,8 @@ var TRANSLATIONS = {
   /* --- ATTRACTIONS DATA --- */
   'attractions': {
     es: [
-      { name: 'Resbaladilla del Sol', badge: 'extreme', badgeLabel: 'Extremo', vibe: 'Adrenalina', desc: 'El tobogán más alto del parque. Caída libre de adrenalina pura desde lo más alto de nuestra torre central.' },
-      { name: 'El Huracán', badge: 'extreme', badgeLabel: 'Extremo', vibe: 'Emoción', desc: 'Giros, curvas cerradas y velocidad máxima en nuestro segundo tobogán de tubo cerrado.' },
+      { name: 'Resbaladilla del Sol', badge: 'extreme', badgeLabel: 'Divertido', vibe: 'Adrenalina', desc: 'El tobogán más alto del parque. Caída libre de adrenalina pura desde lo más alto de nuestra torre central.' },
+      { name: 'El Huracán', badge: 'extreme', badgeLabel: 'Divertido', vibe: 'Emoción', desc: 'Giros, curvas cerradas y velocidad máxima en nuestro segundo tobogán de tubo cerrado.' },
       { name: 'Oasis Olimpo', badge: 'family', badgeLabel: 'Familiar', vibe: 'Relajación', desc: 'Alberca de oleaje artificial perfecta para toda la familia. Camastros dentro del agua incluidos.' },
       { name: 'Zona Kids', badge: 'kids', badgeLabel: 'Niños', vibe: 'Diversión', desc: 'Chapoteadero con resbaladillas, juegos de agua y área segura diseñada especialmente para los más pequeños.' },
       { name: 'La Laguna', badge: 'family', badgeLabel: 'Familiar', vibe: 'Diversión', desc: 'Alberca principal con sombrillas acuáticas, camastros flotantes y vista a las palapas. El centro del parque.' }

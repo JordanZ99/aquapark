@@ -1620,6 +1620,7 @@ ul {
 .alimentos-img {
   border-radius: 1.5rem;
   overflow: hidden;
+  position: relative;
 }
 
 .alimentos-img img {
@@ -1627,6 +1628,17 @@ ul {
   height: 100%;
   object-fit: cover;
   border-radius: 1.5rem;
+}
+
+.alimentos-img .food-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+}
+
+.alimentos-img .food-slide.active {
+  opacity: 1;
 }
 
 .alimentos-text h2 {

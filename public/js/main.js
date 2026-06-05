@@ -539,6 +539,22 @@ window.addEventListener('load', function () { window.scrollTo(0, 0); });
   }
 
   /* ---------------------------------------------------------
+     7d. ALIMENTOS SLIDESHOW — auto-cycle food images
+     --------------------------------------------------------- */
+  var alimentosImg = document.getElementById('alimentosImg');
+  if (alimentosImg) {
+    var foodSlides = alimentosImg.querySelectorAll('.food-slide');
+    var foodCurrentSlide = 0;
+    if (foodSlides.length > 1) {
+      setInterval(function () {
+        foodSlides[foodCurrentSlide].classList.remove('active');
+        foodCurrentSlide = (foodCurrentSlide + 1) % foodSlides.length;
+        foodSlides[foodCurrentSlide].classList.add('active');
+      }, 6000);
+    }
+  }
+
+  /* ---------------------------------------------------------
      8. GALLERY FILTERS
      --------------------------------------------------------- */
   var filterBtns = document.querySelectorAll('.gallery-filter');
