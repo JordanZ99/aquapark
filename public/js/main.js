@@ -264,6 +264,82 @@ window.addEventListener('load', function () { window.scrollTo(0, 0); });
   window.addEventListener('resize', function () { setTimeout(cachePositions, 200); });
 
   /* ---------------------------------------------------------
+     4c. CUSTOM SCROLL PILL — floats over content, draggable
+     --------------------------------------------------------- */
+  var scrollPill = document.createElement('div');
+  scrollPill.className = 'custom-scroll-pill';
+  document.body.appendChild(scrollPill);
+  var pillHideTimeout = null;
+  var isDragging = false;
+  var dragStartY = 0;
+  var dragStartScroll = 0;
+
+  function getPillMetrics() {
+    var scrollH = document.documentElement.scrollHeight;
+    var clientH = document.documentElement.clientHeight;
+    var ratio = clientH / scrollH;
+    var pillH = Math.max(30, ratio * clientH);
+    var maxTop = clientH - pillH;
+    return { scrollH: scrollH, clientH: clientH, pillH: pillH, maxTop: maxTop };
+  }
+
+  function updateScrollPill() {
+    if (isDragging) return; /* skip while user is dragging */
+    var m = getPillMetrics();
+    if (m.scrollH <= m.clientH) { scrollPill.style.display = 'none'; return; }
+    scrollPill.style.display = '';
+    var scrollY = window.scrollY || window.pageYOffset;
+    var progress = scrollY / (m.scrollH - m.clientH);
+    scrollPill.style.height = m.pillH + 'px';
+    scrollPill.style.top = (progress * m.maxTop) + 'px';
+  }
+
+  function showPill() {
+    scrollPill.classList.add('visible');
+    if (pillHideTimeout) clearTimeout(pillHideTimeout);
+    pillHideTimeout = setTimeout(function () {
+      if (!isDragging) scrollPill.classList.remove('visible');
+    }, 1200);
+  }
+
+  /* Drag to scroll */
+  scrollPill.addEventListener('mousedown', function (e) {
+    e.preventDefault();
+    isDragging = true;
+    dragStartY = e.clientY;
+    dragStartScroll = window.scrollY || window.pageYOffset;
+    scrollPill.classList.add('dragging');
+    document.body.style.userSelect = 'none';
+  });
+
+  document.addEventListener('mousemove', function (e) {
+    if (!isDragging) return;
+    var m = getPillMetrics();
+    var deltaY = e.clientY - dragStartY;
+    var scrollPerPixel = (m.scrollH - m.clientH) / m.maxTop;
+    var newScroll = dragStartScroll + deltaY * scrollPerPixel;
+    newScroll = Math.max(0, Math.min(newScroll, m.scrollH - m.clientH));
+    window.scrollTo(0, newScroll);
+    /* Move pill in sync with the drag */
+    var progress = newScroll / (m.scrollH - m.clientH);
+    scrollPill.style.top = (progress * m.maxTop) + 'px';
+    showPill();
+  });
+
+  document.addEventListener('mouseup', function () {
+    if (!isDragging) return;
+    isDragging = false;
+    scrollPill.classList.remove('dragging');
+    document.body.style.userSelect = '';
+    showPill();
+  });
+
+  window.addEventListener('scroll', updateScrollPill, { passive: true });
+  window.addEventListener('scroll', showPill, { passive: true });
+  window.addEventListener('resize', updateScrollPill, { passive: true });
+  updateScrollPill();
+
+  /* ---------------------------------------------------------
      5. SCROLL HANDLER — RAF ticking
      --------------------------------------------------------- */
   var ticking = false;

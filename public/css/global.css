@@ -32,6 +32,10 @@
 html {
   overflow-x: hidden;
   background: var(--color-light);
+  scrollbar-width: none; /* Firefox */
+}
+html::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Edge */
 }
 
 html.lenis,
@@ -50,6 +54,39 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
+
+/* ============================================================
+   CUSTOM SCROLLBAR PILL — JS-driven, floats over content
+   ============================================================ */
+.custom-scroll-pill {
+  position: fixed;
+  right: 6px;
+  width: 5px;
+  border-radius: 999px;
+  background: var(--color-white);
+  z-index: 9998;
+  opacity: 0;
+  transition: opacity 0.3s ease, width 0.2s ease;
+  cursor: grab;
+}
+
+.custom-scroll-pill.visible {
+  opacity: 0.85;
+}
+
+.custom-scroll-pill:hover {
+  width: 7px;
+  opacity: 1;
+}
+
+.custom-scroll-pill.dragging {
+  width: 7px;
+  opacity: 1;
+  cursor: grabbing;
+  transition: opacity 0.15s ease, width 0.15s ease;
+}
+
+
 
 /* Locked scroll while preloader is visible — applied via class on <body> from HTML */
 body.preloading {
